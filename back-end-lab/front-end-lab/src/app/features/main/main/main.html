@@ -1,0 +1,8 @@
+<div class="main-container">
+  <h1>Bienvenido al Sistema</h1>
+  <p *ngIf="authService.usuarioActual()">
+    Usuario activo: <strong>{{ authService.usuarioActual()?.nombre }}</strong>
+  </p>
+  
+  <button (click)="logout()">Cerrar Sesión</button>
+</div>
