@@ -1,6 +1,8 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+// 1. IMPORTAMOS EL ENVIRONMENT AQUÍ:
+import { environment } from '../../environments/environment';
 
 export const ROLES = [
   { id: 1, nombre: 'admin' },
@@ -50,7 +52,8 @@ export class AuthService {
   readonly usuarioActual = computed(() => this.payload());
 
   login(credentials: { login: string; password: string }) {
-    return this.http.post<{ message: string; token: string }>('/api/auth/login', credentials).pipe(
+    // 2. CAMBIAMOS LA RUTA USANDO EL ENVIRONMENT:
+    return this.http.post<{ message: string; token: string }>(`${environment.apiUrl}/api/auth/login`, credentials).pipe(
       tap(response => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
